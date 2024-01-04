@@ -1,7 +1,7 @@
 require('lualine').setup{
     options = {
         icons_enabled = true,
-        theme = 'xcodehc'
+        theme = 'default'
     },
     sections = {
         lualine_a = {'mode'},
@@ -11,5 +11,5 @@ require('lualine').setup{
         lualine_y = {'progress'},
         lualine_z = {'location'},
     },
-    extensions = {'fugitive'},
+    extensions = {'delek'},
 }
