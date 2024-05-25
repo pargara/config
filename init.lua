@@ -32,4 +32,4 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.cmd.colorscheme "delek"
+vim.cmd.colorscheme "slate"
