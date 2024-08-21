@@ -1,5 +1,38 @@
 local lsp_zero = require('lsp-zero')
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+local servers = {
+    tsserver = {},
+    rust_analyzer = {},
+    solargraph = {},
+    eslint = {},
+    ruby_lsp = {},
+    sorbet = {},
+    rubocop = {},
+    pyre = {},
+    pylsp = {},
+    lua_ls = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                globals = {'vim'},
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
+
 lsp_zero.on_attach(function(client, bufnr)
     local opts = {buffer = bufnr, remap = false}
 
@@ -17,7 +50,7 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = {'tsserver', 'rust_analyzer', 'solargraph', 'eslint', 'ruby_ls', "pyre", "pylsp" },
+    ensure_installed = {'tsserver', 'rust_analyzer', 'solargraph', 'eslint', 'ruby_lsp', "sorbet", "rubocop", "pyre", "pylsp" },
     handlers = {
         lsp_zero.default_setup,
         lua_ls = function()
@@ -26,6 +59,17 @@ require('mason-lspconfig').setup({
         end,
     }
 })
+
+require('mason-lspconfig').setup_handlers {
+  function(server_name)
+    require("lspconfig")[server_name].setup {
+      capabilities = capabilities,
+      on_attach = lsp_zero.on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    }
+  end
+}
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -44,3 +88,4 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
 })
+

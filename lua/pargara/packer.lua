@@ -26,14 +26,8 @@ return require('packer').startup(function(use)
     use ({'folke/todo-comments.nvim'})
     use ({'xiyaowong/transparent.nvim'})
     use ({'andweeb/presence.nvim'})
-
-    -- use ({
-    --     "catppuccin/nvim"
-    --     , as = "catppuccin",
-    --     config = function()
-    --         vim.cmd('colorscheme catppuccin-mocha')
-    --     end
-    -- })
+    use ({'catppuccin/nvim'})
+    use ({'kdheepak/lazygit.nvim'})
 
     use {
         'VonHeikemen/lsp-zero.nvim',

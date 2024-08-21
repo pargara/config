@@ -3,7 +3,7 @@ require("pargara")
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -32,4 +32,9 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.cmd.colorscheme "slate"
+vim.cmd.colorscheme "catppuccin-mocha"
+
+-- TODO: Fix path of ruby host, check the checkhealth command
+-- let g:ruby_host_prog = '~/.asdf/installs/ruby/3.3.1/bin/neovim-ruby-host'
+vim.g.ruby_host_prog = vim.fn.expand("~/.asdf/installs/ruby/3.3.1/bin/neovim-ruby-host")
+
